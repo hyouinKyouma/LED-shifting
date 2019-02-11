@@ -1,0 +1,219 @@
+
+ledshifting.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000fe  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .comment      00000030  00000000  00000000  00000152  2**0
+                  CONTENTS, READONLY
+  2 .debug_aranges 00000028  00000000  00000000  00000182  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_info   000001c8  00000000  00000000  000001aa  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_abbrev 00000136  00000000  00000000  00000372  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_line   0000017f  00000000  00000000  000004a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_frame  00000034  00000000  00000000  00000628  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    0000017f  00000000  00000000  0000065c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00000141  00000000  00000000  000007db  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000048  00000000  00000000  0000091c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 77 00 	call	0xee	; 0xee <main>
+  64:	0c 94 7d 00 	jmp	0xfa	; 0xfa <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <shift>:
+//#define F_CPU 1000000UL
+#include <util/delay.h>
+
+void shift(char num)
+{
+	DDRB=0xff;
+  6c:	9f ef       	ldi	r25, 0xFF	; 255
+  6e:	97 bb       	out	0x17, r25	; 23
+	if(num==0)
+  70:	88 23       	and	r24, r24
+  72:	31 f0       	breq	.+12     	; 0x80 <shift+0x14>
+  74:	90 e0       	ldi	r25, 0x00	; 0
+  76:	f0 e0       	ldi	r31, 0x00	; 0
+  78:	e0 e0       	ldi	r30, 0x00	; 0
+	}
+	else
+		for(char j=0;j<num;j++)
+		for (char i=0;i<9;i++)
+		{
+			PORTB=0x01<<i;
+  7a:	61 e0       	ldi	r22, 0x01	; 1
+  7c:	70 e0       	ldi	r23, 0x00	; 0
+  7e:	33 c0       	rjmp	.+102    	; 0xe6 <shift+0x7a>
+#include <util/delay.h>
+
+void shift(char num)
+{
+	DDRB=0xff;
+	if(num==0)
+  80:	40 e0       	ldi	r20, 0x00	; 0
+		
+		while(1)
+		{
+			for (char i=0;i<8;i++)
+			{
+				PORTB=0x01<<i;
+  82:	21 e0       	ldi	r18, 0x01	; 1
+  84:	30 e0       	ldi	r19, 0x00	; 0
+	if(num==0)
+	{
+		
+		while(1)
+		{
+			for (char i=0;i<8;i++)
+  86:	50 e0       	ldi	r21, 0x00	; 0
+			{
+				PORTB=0x01<<i;
+  88:	c9 01       	movw	r24, r18
+  8a:	04 2e       	mov	r0, r20
+  8c:	02 c0       	rjmp	.+4      	; 0x92 <shift+0x26>
+  8e:	88 0f       	add	r24, r24
+  90:	99 1f       	adc	r25, r25
+  92:	0a 94       	dec	r0
+  94:	e2 f7       	brpl	.-8      	; 0x8e <shift+0x22>
+  96:	88 bb       	out	0x18, r24	; 24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  98:	6f e9       	ldi	r22, 0x9F	; 159
+  9a:	86 e8       	ldi	r24, 0x86	; 134
+  9c:	91 e0       	ldi	r25, 0x01	; 1
+  9e:	61 50       	subi	r22, 0x01	; 1
+  a0:	80 40       	sbci	r24, 0x00	; 0
+  a2:	90 40       	sbci	r25, 0x00	; 0
+  a4:	e1 f7       	brne	.-8      	; 0x9e <shift+0x32>
+  a6:	00 c0       	rjmp	.+0      	; 0xa8 <shift+0x3c>
+  a8:	00 00       	nop
+	if(num==0)
+	{
+		
+		while(1)
+		{
+			for (char i=0;i<8;i++)
+  aa:	4f 5f       	subi	r20, 0xFF	; 255
+  ac:	48 30       	cpi	r20, 0x08	; 8
+  ae:	60 f3       	brcs	.-40     	; 0x88 <shift+0x1c>
+  b0:	45 2f       	mov	r20, r21
+  b2:	ea cf       	rjmp	.-44     	; 0x88 <shift+0x1c>
+	}
+	else
+		for(char j=0;j<num;j++)
+		for (char i=0;i<9;i++)
+		{
+			PORTB=0x01<<i;
+  b4:	ab 01       	movw	r20, r22
+  b6:	02 2e       	mov	r0, r18
+  b8:	02 c0       	rjmp	.+4      	; 0xbe <shift+0x52>
+  ba:	44 0f       	add	r20, r20
+  bc:	55 1f       	adc	r21, r21
+  be:	0a 94       	dec	r0
+  c0:	e2 f7       	brpl	.-8      	; 0xba <shift+0x4e>
+  c2:	48 bb       	out	0x18, r20	; 24
+  c4:	af e9       	ldi	r26, 0x9F	; 159
+  c6:	46 e8       	ldi	r20, 0x86	; 134
+  c8:	51 e0       	ldi	r21, 0x01	; 1
+  ca:	a1 50       	subi	r26, 0x01	; 1
+  cc:	40 40       	sbci	r20, 0x00	; 0
+  ce:	50 40       	sbci	r21, 0x00	; 0
+  d0:	e1 f7       	brne	.-8      	; 0xca <shift+0x5e>
+  d2:	00 c0       	rjmp	.+0      	; 0xd4 <shift+0x68>
+  d4:	00 00       	nop
+  d6:	2f 5f       	subi	r18, 0xFF	; 255
+  d8:	3f 4f       	sbci	r19, 0xFF	; 255
+			}
+		}
+	}
+	else
+		for(char j=0;j<num;j++)
+		for (char i=0;i<9;i++)
+  da:	29 30       	cpi	r18, 0x09	; 9
+  dc:	31 05       	cpc	r19, r1
+  de:	51 f7       	brne	.-44     	; 0xb4 <shift+0x48>
+				_delay_ms(500);
+			}
+		}
+	}
+	else
+		for(char j=0;j<num;j++)
+  e0:	9f 5f       	subi	r25, 0xFF	; 255
+  e2:	98 17       	cp	r25, r24
+  e4:	19 f0       	breq	.+6      	; 0xec <shift+0x80>
+#include <util/delay.h>
+
+void shift(char num)
+{
+	DDRB=0xff;
+	if(num==0)
+  e6:	2f 2f       	mov	r18, r31
+  e8:	3e 2f       	mov	r19, r30
+  ea:	e4 cf       	rjmp	.-56     	; 0xb4 <shift+0x48>
+  ec:	08 95       	ret
+
+000000ee <main>:
+	
+}
+int main(void)
+{
+	char choice=1; //0 for infinite execution
+    shift(choice);
+  ee:	81 e0       	ldi	r24, 0x01	; 1
+  f0:	0e 94 36 00 	call	0x6c	; 0x6c <shift>
+
+  f4:	80 e0       	ldi	r24, 0x00	; 0
+  f6:	90 e0       	ldi	r25, 0x00	; 0
+  f8:	08 95       	ret
+
+000000fa <_exit>:
+  fa:	f8 94       	cli
+
+000000fc <__stop_program>:
+  fc:	ff cf       	rjmp	.-2      	; 0xfc <__stop_program>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ledshifting", "ledshifting\ledshifting.cproj", "{190221F2-4B2E-423E-8801-AA93706D8AD0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		ledhiftinginfinite|AVR = ledhiftinginfinite|AVR
+		ledshifting|AVR = ledshifting|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{190221F2-4B2E-423E-8801-AA93706D8AD0}.Debug|AVR.ActiveCfg = Debug|AVR
+		{190221F2-4B2E-423E-8801-AA93706D8AD0}.ledhiftinginfinite|AVR.ActiveCfg = ledhiftinginfinite|AVR
+		{190221F2-4B2E-423E-8801-AA93706D8AD0}.ledhiftinginfinite|AVR.Build.0 = ledhiftinginfinite|AVR
+		{190221F2-4B2E-423E-8801-AA93706D8AD0}.ledshifting|AVR.ActiveCfg = ledshifting|AVR
+		{190221F2-4B2E-423E-8801-AA93706D8AD0}.ledshifting|AVR.Build.0 = ledshifting|AVR
+		{190221F2-4B2E-423E-8801-AA93706D8AD0}.Release|AVR.ActiveCfg = Release|AVR
+		{190221F2-4B2E-423E-8801-AA93706D8AD0}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
